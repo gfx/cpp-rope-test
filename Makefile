@@ -1,5 +1,5 @@
 
 test: rope.cpp
-	g++ -Wextra -Wall -Weffc++ -o test -DTESTING rope.cpp
+	g++ -O2 -Wextra -Wall  -o test -DTESTING rope.cpp
 	./test
 	rm test
