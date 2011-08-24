@@ -51,16 +51,14 @@ namespace gfx {
 }
 
 template <typename StringT>
-void doit(const int n) {
-    StringT t("<p>Hello, world!</p>\n");
-
+void doit(const int n, StringT part) {
     StringT s;
     for(int i = 0; i < n; i++) {
-        s.append(t);
+        s.append(part);
     }
 
 
-    if(0) {
+    if(true) {
         std::ostringstream buff;
         buff << s;
     }
@@ -74,15 +72,28 @@ int main() {
 
     std::cout << s0 << std::endl;
 
-    const int N = 10 * 1000 * 1000;
+    const char* const longstr
+        = "01234567890123456789012345678901234567890123456789"; // 50b
+    const char* const shortstr = "."; // 1b
+
+    const int N = 2 * 1000 * 1000;
     gfx::scoped_timer_cputime::elapsed_type e;
     for(int i = 0; i < 2; i++){
-        gfx::scoped_timer_cputime t(e, "std::string");
-        doit<std::string>(N);
+        gfx::scoped_timer_cputime t(e, "std::string (long)");
+        doit<std::string>(N, longstr);
     }
     for(int i = 0; i < 2; i++){
-        gfx::scoped_timer_cputime t(e, "gfx::rope");
-        doit<gfx::rope>(N);
+        gfx::scoped_timer_cputime t(e, "std::string (short)");
+        doit<std::string>(N, shortstr);
+    }
+
+    for(int i = 0; i < 2; i++){
+        gfx::scoped_timer_cputime t(e, "gfx::rope (long)");
+        doit<gfx::rope>(N, longstr);
+    }
+    for(int i = 0; i < 2; i++){
+        gfx::scoped_timer_cputime t(e, "gfx::rope (short)");
+        doit<gfx::rope>(N, shortstr);
     }
     return 0;
 }
