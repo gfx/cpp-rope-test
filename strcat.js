@@ -1,7 +1,7 @@
 #!/usr/local/bin/node
 "use strict";
 
-var lstr = "01234567890123456789012345678901234567890123456789"; // 50 b
+var lstr = "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789"; // 100 b
 var sstr = "."; // 1 b
 
 var N = 100 * 1000; // number of loop
@@ -15,7 +15,7 @@ function doit(p, name) {
             s += p;
         }
     }
-    process.stderr.write(s);
+    process.stderr.write(s); // force join
 
     var t1 = Date.now();
     console.log(name + ": " + ((t1 - t0) / 1000));
