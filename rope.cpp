@@ -28,6 +28,9 @@ namespace gfx {
                 this->list_.push_back( *i );
             }
         }
+        void append(const std::string& r) {
+            this->list_.push_back(r);
+        }
 
         template <typename Stream>
         void put_to(Stream& o) const {
@@ -65,7 +68,7 @@ const int N = 100 * 1000;
 const int M = 1000;
 
 template <typename StringT>
-void doit(StringT part) {
+void doit(const std::string& part) {
     for(int i = 0; i < N; ++i) {
         StringT s;
         for(int i = 0; i < M; i++) {
