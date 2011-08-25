@@ -47,15 +47,16 @@ namespace gfx {
 
 template <typename StringT>
 void doit(const int n, StringT part) {
-    StringT s;
-    for(int i = 0; i < n; i++) {
-        s.append(part);
-    }
+    for(int i = 0; i < 10; ++i) {
+        StringT s;
+        for(int i = 0; i < n; i++) {
+            s.append(part);
+        }
 
-
-    if(true) {
-        std::ostringstream buff;
-        buff << s;
+        if(true) {
+            std::ostringstream buff;
+            buff << s;
+        }
     }
 }
 
@@ -67,11 +68,12 @@ int main() {
 
     std::cout << s0 << std::endl;
 
-    const char* const longstr
-        = "01234567890123456789012345678901234567890123456789"; // 50b
-    const char* const shortstr = "."; // 1b
+    const char* const longstr // 100 bytes
+        = "01234567890123456789012345678901234567890123456789"
+          "01234567890123456789012345678901234567890123456789";
+    const char* const shortstr = "."; // 1 bytes
 
-    const int N = 10 * 1000 * 1000;
+    const int N = 1000 * 1000;
     gfx::scoped_timer_cputime::elapsed_type e;
     for(int i = 0; i < 2; i++){
         gfx::scoped_timer_cputime t(e, "std::string (long)");
