@@ -37,12 +37,28 @@ namespace gfx {
                 o << *i;
             }
         }
+        std::string join() const {
+	  std::string r;
+	  std::string::size_type len = 0;
+	  for (list_t::const_iterator i = list_.begin(); i != list_.end(); ++i)
+	    len += i->size();
+	  r.reserve(len);
+	  for (list_t::const_iterator i = list_.begin(); i != list_.end(); ++i)
+	    r.append(*i);
+	  return r;
+        }
     };
 
-    std::ostream& operator<< (std::ostream& o, const rope& r) {
-        r.put_to(o);
-        return o;
-    }
+}
+
+template <typename T> std::string join_s(const T& s)
+{
+  return s;
+}
+
+template<> std::string join_s<gfx::rope>(const gfx::rope& s)
+{
+  return s.join();
 }
 
 template <typename StringT>
@@ -54,8 +70,7 @@ void doit(const int n, StringT part) {
         }
 
         if(true) {
-            std::ostringstream buff;
-            buff << s;
+	  join_s(s);
         }
     }
 }
@@ -66,7 +81,7 @@ int main() {
 
     s0.append(s1);
 
-    std::cout << s0 << std::endl;
+    std::cout << join_s(s0) << std::endl;
 
     const char* const longstr // 100 bytes
         = "01234567890123456789012345678901234567890123456789"
