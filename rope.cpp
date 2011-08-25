@@ -61,16 +61,19 @@ template<> std::string join_s<gfx::rope>(const gfx::rope& s)
   return s.join();
 }
 
+const int N = 100 * 1000;
+const int M = 1000;
+
 template <typename StringT>
-void doit(const int n, StringT part) {
-    for(int i = 0; i < 10; ++i) {
+void doit(StringT part) {
+    for(int i = 0; i < N; ++i) {
         StringT s;
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < M; i++) {
             s.append(part);
         }
 
         if(true) {
-	  join_s(s);
+            join_s(s);
         }
     }
 }
@@ -88,24 +91,23 @@ int main() {
           "01234567890123456789012345678901234567890123456789";
     const char* const shortstr = "."; // 1 bytes
 
-    const int N = 1000 * 1000;
     gfx::scoped_timer_cputime::elapsed_type e;
     for(int i = 0; i < 2; i++){
         gfx::scoped_timer_cputime t(e, "std::string (long)");
-        doit<std::string>(N, longstr);
+        doit<std::string>(longstr);
     }
     for(int i = 0; i < 2; i++){
         gfx::scoped_timer_cputime t(e, "std::string (short)");
-        doit<std::string>(N, shortstr);
+        doit<std::string>(shortstr);
     }
 
     for(int i = 0; i < 2; i++){
         gfx::scoped_timer_cputime t(e, "gfx::rope (long)");
-        doit<gfx::rope>(N, longstr);
+        doit<gfx::rope>(longstr);
     }
     for(int i = 0; i < 2; i++){
         gfx::scoped_timer_cputime t(e, "gfx::rope (short)");
-        doit<gfx::rope>(N, shortstr);
+        doit<gfx::rope>(shortstr);
     }
     return 0;
 }
